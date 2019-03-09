@@ -1,24 +1,26 @@
-N,A,B,C = gets.chomp.split(" ").map(&:to_i)
+N, A, B, C = gets.split.map(&:to_i)
+L = N.times.map{gets.to_i}
 
-chops = []
-N.times do |i|
-    chops << gets.chomp.to_i
+def dfs(i, a, b, c)
+    if i == N
+        # if a == A || b == B || c == C
+        #     Float::INFINITY
+        # else  
+        #aもbもcも数が減っていない == 
+        if a == A || b == B || c == C
+            Float::INFINITY
+        else  
+            # return [a.abs,b.abs,c.abs]
+            #一本だけの場合には+10ではないので、a,b,cでそれぞれ-30する
+            return a.abs + b.abs + c.abs - 30
+        end
+    else
+
+        return [dfs(i + 1, a, b, c), #使わない
+                dfs(i + 1, a - L[i], b, c) + 10, #Aに使う
+                dfs(i + 1, a, b - L[i], c) + 10, #Bに使う
+                dfs(i + 1, a, b, c - L[i]) + 10 #Cに使う
+        ].min
+    end 
 end
-chops.sort!{|a, b| b <=> a }
-similar_chops = []
-goal_length = [A,B,C].sort{|a, b| b <=> a }
-p goal_length
-goal_length.each do |length|
-    div_length = []
-    chops.each do |chop|
-        div_length << (chop-length).abs
-    end
-    div_length_sorted = div_length.sort
-    use_chop_index = div_length.index(div_length_sorted[0])
-    similar_chops << chops[use_chop_index]
-    chops.delete_at(use_chop_index)
-end
-p similar_chops
-
-
-
+p dfs(0, A, B, C)
