@@ -9,12 +9,12 @@ for i in range(N - 1):
     graph[a - 1].append(b - 1)
     graph[b - 1].append(a - 1)
 
-# print(graph)
+print(graph)
 v = [0] * N
 for i in range(Q):
     p, x = map(int, input().split())
     v[p - 1] += x
-# print(v)
+print(v)
 
 
 seen_points = [True] * N
