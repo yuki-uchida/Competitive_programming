@@ -15,6 +15,8 @@ for i in range(N):
 loads.sort(key=lambda x: x[2])
 print(loads)
 
+# グラフの各頂点がそれぞれの木に属するように、木を作成する。
+# 最初は自身のみを入れておく
 nodes = [i for i in range(N)]
 
 
@@ -23,6 +25,8 @@ def root(node):
     if nodes[node] == node:
         return node
     # 自身が根じゃない場合、現在自身の根と仮決めされているものの根をチェックして、修正する
+    # データnodeが属する木の根を取得する。そして再帰的に根をチェックして、自身の根を張り替える。
+    # マージすると言ってもいい
     nodes[node] = root(nodes[node])
     return nodes[node]
 
