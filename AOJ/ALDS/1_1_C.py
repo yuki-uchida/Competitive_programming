@@ -15,6 +15,8 @@ for i in range(2, 10000):
 
 def check(n):
     for p in primes:
+        # 全てprimesを見るのは時間が勿体無いので、自身よりも大きいもの・もしくは同じになったら抜ける.
+        # もし素数でないのであれば、p<nの間にあるはず。ない状態で、同じ数値まで来た場合も素数
         if n <= p:
             return True
         if n % p == 0:
