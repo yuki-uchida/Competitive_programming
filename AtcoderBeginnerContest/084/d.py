@@ -12,7 +12,7 @@ def prime_numbers(n):
         if p[i]:
             for j in range(2 * i * (i + 1), m, 2 * i + 1):
                 p[j] = False
-
+    # 素数のみ返す
     a = [2 * i + 1 for i in range(m) if p[i]]
     a[0] = 2
     return a
