@@ -40,6 +40,8 @@ def modcomb(n, r, mod):
     # print(nPr, modpow(rPr, mod - 2, mod))
     # nCrのmodを高速にとる。nPr / rPr を nPr * (1/rPr)に分ける
     # modにおいて、rPrにbをかけると1になる。そのようなbがrPrの逆元である
+    # フェルマーの小定理を使う
+    # (n!)−1≡(n!)p−2 mod p 
     return nPr * modpow(rPr, mod - 2, mod) % mod
 
 
