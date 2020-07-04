@@ -19,13 +19,17 @@ for i in range(M):
 inf = float('inf')
 dps = [[inf for _ in range(len(dangers_index))] for _ in range(len(dangers_index))]
 # print(dangers)
+
+
+dis = [inf for _ in range(N)]
 for i in dangers_index:
     if dangers[i] == -1:
         queue = deque([[i, 0]])
         while queue:
             now_point, now_cost = queue.popleft()
-            if now_cost >= S:
+            if now_cost >= S or now_cost >= dis[now_point]:
                 continue
+            dis[now_point] = now_cost
             for next_point in graphs[now_point]:
                 if dangers[next_point] == -1:
                     continue
@@ -33,16 +37,17 @@ for i in dangers_index:
                 if now_cost + 1 >= S:
                     continue
                 queue.append([next_point, now_cost + 1])
-print(dangers)
-print(graphs)
+        # print(dis)
+# print(dangers)
+# print(graphs)
 start_point = 0
 goal_point = N - 1
-queue = deque([[start_point, 0]])
-
+queue = []
+heapq.heappush(queue, (0, start_point))
 
 dps = [inf for _ in range(N)]
 while queue:
-    now_point, now_cost = queue.popleft()
+    now_cost, now_point = heapq.heappop(queue)
     if dps[now_point] < now_cost:
         continue
     for next_point in graphs[now_point]:
@@ -55,7 +60,7 @@ while queue:
         if dps[next_point] <= now_cost + cost:
             continue
         dps[next_point] = now_cost + cost
-        queue.append([next_point, dps[next_point]])
+        heapq.heappush(queue, (dps[next_point], next_point))
 
 if dangers[goal_point] == 0:
     print(dps[goal_point] - Q)
