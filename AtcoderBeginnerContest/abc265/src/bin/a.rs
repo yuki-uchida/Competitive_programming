@@ -7,11 +7,10 @@ fn main() {
         n: usize,
     }
     let mut min_payment: usize = y*n;
-    for i in 0..=(n/3) {
-        for j in (10-i)..=(n-(3*i)) {
-            if (x*i)+(y*j) < min_payment {
-                min_payment = (x*i)+(y*j);
-            }
+    for y_i in 0..=(n/3) {
+        let x_i = n-(3*y_i);
+        if (y*y_i) + (x*x_i) < min_payment {
+            min_payment = (y*y_i) + (x*x_i);
         }
     }
     println!("{}", min_payment);
